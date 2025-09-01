@@ -11,14 +11,18 @@ offset_bottom = 1024.0
 [node name="Buttons" type="Node2D" parent="."]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Buttons"]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 138.0
+offset_top = 729.0
+offset_right = 438.0
+offset_bottom = 1129.0
 
-[node name="Button" type="Button" parent="Buttons/VBoxContainer"]
+[node name="StartButton" type="Button" parent="Buttons/VBoxContainer"]
 layout_mode = 2
+text = "Start"
 
-[node name="Button2" type="Button" parent="Buttons/VBoxContainer"]
+[node name="OptionsButton" type="Button" parent="Buttons/VBoxContainer"]
 layout_mode = 2
+text = "Options"
 
 [node name="Button3" type="Button" parent="Buttons/VBoxContainer"]
 layout_mode = 2
