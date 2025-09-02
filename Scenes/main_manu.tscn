@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://dm7e47kux015i"]
+[gd_scene load_steps=3 format=3 uid="uid://dm7e47kux015i"]
+
+[ext_resource type="Script" path="res://Scripts/start_button.gd" id="1_d54c8"]
+[ext_resource type="Script" path="res://Scripts/back_button.gd" id="2_rbd5i"]
 
 [node name="MainManu" type="Node2D"]
 
@@ -20,6 +23,7 @@ offset_bottom = 1029.0
 layout_mode = 2
 theme_override_font_sizes/font_size = 100
 text = "Start"
+script = ExtResource("1_d54c8")
 
 [node name="ExtraButtons" type="Node2D" parent="Buttons"]
 position = Vector2(550, 0)
@@ -48,6 +52,7 @@ text = "Help"
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Back"
+script = ExtResource("2_rbd5i")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Buttons/ExtraButtons/HBoxContainer"]
 layout_mode = 2
@@ -74,3 +79,6 @@ offset_right = 413.0
 offset_bottom = 618.0
 theme_override_font_sizes/font_size = 80
 text = "Study"
+
+[connection signal="pressed" from="Buttons/StartButtonContainer/StartButton" to="Buttons/StartButtonContainer/StartButton" method="_on_pressed"]
+[connection signal="pressed" from="Buttons/ExtraButtons/HBoxContainer/VBoxContainer/BackButton" to="Buttons/ExtraButtons/HBoxContainer/VBoxContainer/BackButton" method="_on_pressed"]
