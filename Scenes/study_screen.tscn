@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://cm6dv2ufen6ni"]
+
+[ext_resource type="Script" path="res://Scripts/label.gd" id="1_l76j0"]
+
+[node name="StudyScreen" type="Node2D"]
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+offset_right = 576.0
+offset_bottom = 1024.0
+
+[node name="Timer" type="Node2D" parent="."]
+
+[node name="Timer" type="Timer" parent="Timer"]
+wait_time = 1500.0
+
+[node name="Label" type="Label" parent="Timer"]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("1_l76j0")
