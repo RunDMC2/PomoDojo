@@ -1,5 +1,7 @@
 # How to contribute to PomoDojo!
 
+This file will walk you through every step there is to both first starting out, and then eventually contributing your very own changes to PomoDojo! We detail how to make changes utilizing Git terminal commands, so if you're completely new to Git and GitHub, follow this guide as well as possible and reach out if you have any questions! 
+
 > **A few things to note! (mostly for after developing more than once)**
 > 
 > - Make sure you try to **close out of Godot when running Git commands**. It may lead to saving errors if you save files after running Git commands with it open.
