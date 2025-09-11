@@ -2,11 +2,11 @@
 
 > **A few things to note! (mostly for after developing more than once)**
 > 
-> - Make sure you close out of Godot when running Git commands
+> - Make sure you try to **close out of Godot when running Git commands**. It may lead to saving errors if you save files after running Git commands with it open.
 > - Be sure to adhere to the minigame guidelines to make sure minigames are uniformly developed
 > - Make sure to create a new development branch every time you start working on a new task/issue
 >
->   Happy coding!
+> Happy coding!
 
 
 # Getting started:
