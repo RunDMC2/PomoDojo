@@ -46,7 +46,7 @@ Either way, you should now be in your project file directory.
 - This has now made a copy of the repository from GitHub onto your local device, and retrieved all of the files into it.
 
 
-#### Step 3: Making a new branch for what you want to contribute
+## Step 3: Making a new branch for what you want to contribute
 - This isn't technically required, but I **HIGHLY HIGHLY** recommend it since it prevents you from overwriting all of your code by accident.
 
 - In either Git Bash or the Command prompt, type **git checkout -b *Insert fancy branch name here***, then press enter (Make sure you remember this branch name, we will reference it a lot later)
