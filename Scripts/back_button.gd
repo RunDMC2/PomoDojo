@@ -16,4 +16,3 @@ func _on_pressed() -> void:
 	var target_position = Vector2(0, 0)
 	
 	tween.tween_property($"../../../..", "position", target_position, 0.7).set_trans(Tween.TRANS_QUART)
-
