@@ -59,6 +59,7 @@ Either way, you should now be in your project file directory.
 
 ### Step 1: Committing changes
 - Open either Git Bash or Command prompt (if in command prompt type **cd *PomoDojo folder name*** first)
+- If you haven't already or forgot to, make sure to create a new development branch by running **git checkout -b *INSERT FANCY BRANCH NAME HERE***. **Look at Step 3: Making a new branch for what you want to contribute** for why to do this.
 - Type **git checkout **branch name**, press enter. This makes sure you are adding commits to your development branch, not your main one.
 - Type **git add .** or **git add *specific file local path(s)* if you want to only add a few changed files.
 - Then type **git commit -m "*Message here*"**, and keep your message short but informative about what it is you changed
