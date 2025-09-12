@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dm7e47kux015i"]
+[gd_scene load_steps=4 format=3 uid="uid://dm7e47kux015i"]
 
 [ext_resource type="Script" path="res://Scripts/start_button.gd" id="1_d54c8"]
 [ext_resource type="Script" path="res://Scripts/back_button.gd" id="2_rbd5i"]
+[ext_resource type="Script" path="res://Scripts/study_button.gd" id="3_27ar0"]
 
 [node name="MainManu" type="Node2D"]
 
@@ -9,15 +10,15 @@
 
 [node name="ColorRect" type="ColorRect" parent="Background"]
 offset_right = 576.0
-offset_bottom = 1024.0
+offset_bottom = 1248.0
 
 [node name="Buttons" type="Node2D" parent="."]
 
 [node name="StartButtonContainer" type="VBoxContainer" parent="Buttons"]
 offset_left = 138.0
-offset_top = 729.0
+offset_top = 829.0
 offset_right = 438.0
-offset_bottom = 1029.0
+offset_bottom = 1129.0
 
 [node name="StartButton" type="Button" parent="Buttons/StartButtonContainer"]
 layout_mode = 2
@@ -26,7 +27,7 @@ text = "Start"
 script = ExtResource("1_d54c8")
 
 [node name="ExtraButtons" type="Node2D" parent="Buttons"]
-position = Vector2(550, 0)
+position = Vector2(550, 100)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Buttons/ExtraButtons"]
 offset_left = 88.0
@@ -79,6 +80,8 @@ offset_right = 413.0
 offset_bottom = 618.0
 theme_override_font_sizes/font_size = 80
 text = "Study"
+script = ExtResource("3_27ar0")
 
 [connection signal="pressed" from="Buttons/StartButtonContainer/StartButton" to="Buttons/StartButtonContainer/StartButton" method="_on_pressed"]
 [connection signal="pressed" from="Buttons/ExtraButtons/HBoxContainer/VBoxContainer/BackButton" to="Buttons/ExtraButtons/HBoxContainer/VBoxContainer/BackButton" method="_on_pressed"]
+[connection signal="pressed" from="Buttons/ExtraButtons/StudyButton" to="Buttons/ExtraButtons/StudyButton" method="_on_pressed"]
