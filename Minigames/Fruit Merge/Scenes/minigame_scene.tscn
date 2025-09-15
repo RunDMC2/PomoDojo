@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://ckklurtco8qqb"]
 
-[ext_resource type="Script" path="res://Minigames/Fruit Merge/Scripts/fruit_merge_game.gd" id="1_ghceh"]
+[ext_resource type="Script" path="res://Minigames/Fruit Merge/Scripts/fruit_merge_game.gd" id="1_af7c1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xtbpb"]
 size = Vector2(500, 50)
@@ -15,7 +15,7 @@ size = Vector2(38, 500)
 size = Vector2(600, 20)
 
 [node name="FruitMergeGame" type="Node2D"]
-script = ExtResource("1_ghceh")
+script = ExtResource("1_af7c1")
 
 [node name="Background" type="Node2D" parent="."]
 
