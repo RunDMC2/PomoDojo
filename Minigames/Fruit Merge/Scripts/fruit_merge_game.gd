@@ -8,8 +8,11 @@ var smallest_radius = 30
 var smallest_scale = 0.075
 var radius_scale_diff = 1.175
 var score = 0
-var highscore = 0
 var game_over = false
+
+var fruit_spawn_height = 250
+var left_barrier = 55
+var right_barrier = 525
 
 var new_fruit_load_time : float = 0.5
 
@@ -17,25 +20,24 @@ var new_fruit_load_time : float = 0.5
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	$ScoreContainer/Score.text = "Score: " + str(score)
-	$ScoreContainer/Highscore.text = "Highscore: " + str(highscore)
 	
 	if game_over:
 		return
 	if !fruit_spawned:  # creates single fruit to be dropped
 		var fruit = fruitObj.instantiate()
 		var random_scaling = 0
-		random_scaling = radius_scale_diff ** randi_range(0, 3)
+		random_scaling = radius_scale_diff ** randi_range(0, 4)
 		fruit.get_node("RigidBody2D/CollisionShape2D").shape.radius = smallest_radius * random_scaling
 		fruit.get_node("RigidBody2D/Sprite2D").scale = Vector2(smallest_scale * random_scaling, smallest_scale * random_scaling)
 		
 		var mouse_pos_x = get_viewport().get_mouse_position()[0]
 		var fruit_rad = snapped(fruit.get_node("RigidBody2D/CollisionShape2D").shape.radius, 1)
 			
-		if mouse_pos_x <= 37 + fruit_rad:
-			mouse_pos_x = 38 + fruit_rad
-		elif mouse_pos_x >= 538 - fruit_rad:
-			mouse_pos_x = 538 - fruit_rad
-		fruit.get_node("RigidBody2D").position = Vector2(mouse_pos_x, 100)
+		if mouse_pos_x <= left_barrier + fruit_rad:
+			mouse_pos_x = left_barrier + 1 + fruit_rad
+		elif mouse_pos_x >= right_barrier - fruit_rad:
+			mouse_pos_x = right_barrier - fruit_rad
+		fruit.get_node("RigidBody2D").position = Vector2(mouse_pos_x, fruit_spawn_height)
 		
 		fruit.set_fruit_image(smallest_radius, smallest_scale, radius_scale_diff)
 		
@@ -46,24 +48,25 @@ func _process(delta: float) -> void:
 	if selected_fruit != null and selected_fruit.get_node("RigidBody2D").freeze:  # freezes fruit in air and follows mouse
 		var mouse_pos_x = get_viewport().get_mouse_position()[0]
 		var fruit_rad = snapped(selected_fruit.get_node("RigidBody2D/CollisionShape2D").shape.radius, 1)
-		if mouse_pos_x > 37 + fruit_rad and mouse_pos_x < 539 - fruit_rad:
-			selected_fruit.get_node("RigidBody2D").position = Vector2(mouse_pos_x, 100)
+		if mouse_pos_x > left_barrier - 1 + fruit_rad and mouse_pos_x < right_barrier + 1 - fruit_rad:
+			selected_fruit.get_node("RigidBody2D").position = Vector2(mouse_pos_x, fruit_spawn_height)
 			
 	if selected_fruit != null:
-		if Input.is_action_just_pressed("mouse") and selected_fruit.get_node("RigidBody2D").freeze:  # sets fruit osition to whereever you click (enables just clicking for positioning
+		if Input.is_action_just_pressed("mouse") and selected_fruit.get_node("RigidBody2D").freeze:  # sets fruit position to whereever you click (enables just clicking for positioning)
 			var mouse_pos_x = get_viewport().get_mouse_position()[0]
 			var fruit_rad = snapped(selected_fruit.get_node("RigidBody2D/CollisionShape2D").shape.radius, 1)
 				
-			if mouse_pos_x <= 37 + fruit_rad:
-				mouse_pos_x = 38 + fruit_rad
-			elif mouse_pos_x >= 538 - fruit_rad:
-				mouse_pos_x = 538 - fruit_rad
-			selected_fruit.get_node("RigidBody2D").position = Vector2(mouse_pos_x, 100)
+			if mouse_pos_x <= left_barrier + fruit_rad:
+				mouse_pos_x = left_barrier + 1 + fruit_rad
+			elif mouse_pos_x >= right_barrier - fruit_rad:
+				mouse_pos_x = right_barrier - fruit_rad
+			selected_fruit.get_node("RigidBody2D").position = Vector2(mouse_pos_x, fruit_spawn_height)
 		
 	if selected_fruit != null:
 		if Input.is_action_just_released("mouse") and selected_fruit.get_node("RigidBody2D").freeze:  # lets fruit fall
 			score += snapped(selected_fruit.get_node("RigidBody2D/CollisionShape2D").shape.radius, 1)
 			selected_fruit.get_node("RigidBody2D").freeze = false
+			selected_fruit.get_node("RigidBody2D/CollisionShape2D").set_deferred("disabled", false)
 			await get_tree().create_timer(new_fruit_load_time).timeout
 			fruit_spawned = false
 		
@@ -105,31 +108,26 @@ func create_merged_fruit(old_size, old_pos):
 	fruit.set_fruit_image(smallest_radius, smallest_scale, radius_scale_diff)
 	
 	fruit.get_node("RigidBody2D").freeze = false
+	fruit.get_node("RigidBody2D/CollisionShape2D").set_deferred("disabled", false)
+	
 	add_child(fruit)
 	score += snapped(fruit.get_node("RigidBody2D/CollisionShape2D").shape.radius, 1)
 	
+	# win trigger for standalone minigame
+	"""
 	if snapped(fruit.get_node("RigidBody2D/CollisionShape2D").shape.radius, 1) == snapped(smallest_radius * (radius_scale_diff ** 10), 1):
 		if !game_over:
 			win()
-
+	"""
 
 func _on_death_plane_entered(body: Node2D) -> void:
 	if !game_over:
-		lose()
-	
-func lose():
-	game_over = true
-	var opac_tween = create_tween()
-	opac_tween.tween_property($"Win or Loss Screen/Background", "modulate:a", 0.75, 0.5).set_ease(Tween.EASE_IN_OUT)
-	
-	
-	await get_tree().create_timer(1).timeout 
-
-	var move_tween = create_tween()
-	move_tween.tween_property($"Win or Loss Screen/Loss Screen", "position:x", 0, 1).set_ease(Tween.EASE_IN_OUT)
+		pass
+		###TODO: make this take away score
 		
-	
-func win():
+
+# YOU CAN NEVER WIN HAHAAHA
+"""func win():
 	game_over = true
 	await get_tree().create_timer(1).timeout 
 	var opac_tween = create_tween()
@@ -139,11 +137,23 @@ func win():
 
 	var move_tween = create_tween()
 	move_tween.tween_property($"Win or Loss Screen/Win Screen", "position:x", 0, 1).set_ease(Tween.EASE_IN_OUT)
+"""
+	
+func lose():
+	game_over = true
+	var opac_tween = create_tween()
+	opac_tween.tween_property($"Game Over Screen/Background", "modulate:a", 0.75, 0.5).set_ease(Tween.EASE_IN_OUT)
+	
+	
+	await get_tree().create_timer(1).timeout 
 
+	var move_tween = create_tween()
+	move_tween.tween_property($"Game Over Screen/Loss Screen", "position:x", 0, 1).set_ease(Tween.EASE_IN_OUT)
+		
 
 func _on_exit_pressed() -> void:
-	pass
+	get_tree().change_scene_to_file("res://Scenes/main_manu.tscn")
 
 
-func _on_try_again_pressed() -> void:
-	get_tree().change_scene_to_file("res://Minigames/Fruit Merge/Scenes/fruit_merge_game.tscn")
+func _on_keep_studying_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/study_screen.tscn")
