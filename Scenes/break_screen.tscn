@@ -22,7 +22,7 @@ color = Color(0, 0, 0, 1)
 [node name="BreakTimer" type="Node2D" parent="."]
 
 [node name="BreakTimer" type="Timer" parent="BreakTimer"]
-wait_time = 301.0
+wait_time = 3.0
 one_shot = true
 autostart = true
 
